@@ -3,7 +3,7 @@
 % corresponding paper:  
 % "Retrieving pulsatility in ultrasound localization microscopy"
 % IEEE Open Journal of Ultrasonics, Ferroelectrics, and Frequency Control
-% Latest update by Myrthe Wiersma on 2022/11/30
+% Latest update by Myrthe Wiersma on 2022/12/02
 
 
 % This script takes an input data set containing:
@@ -87,9 +87,10 @@ close('all')
 
 % Choose folder of data set to perform ULM reconstruction on
 % Choose folder of data set to perform ULM reconstruction on
-Data_folder = 'C:\Users\Lab3\Documents\DataSets';                           % Change this to the location of the folder containing the datasets on your pc
-main_folder = [Data_folder filesep 'DataSetFig3'];              
-REP_folder = 'C:\Users\Lab3\Documents\ULM_pulsatility';                     % Change this to the location of the repository on your pc
+REP_folder = '....\ULM_pulsatility';                                        % CHANGE THIS to the location of the repository on your pc
+Data_folder = [REP_folder filesep 'DataSets'];                             
+main_folder = [Data_folder filesep 'DataSetFig3'];                         
+
 PATCHES = 1;                                                                % Is the simulation structured in patches? Keep to 1
                                                                             % The accompanied dataset: 
                                                                             % Only contains MBs in one 3mmx3mm patch

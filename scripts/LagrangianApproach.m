@@ -3,7 +3,7 @@
 % corresponding paper:  
 % "Retrieving pulsatility in ultrasound localization microscopy"
 % IEEE Open Journal of Ultrasonics, Ferroelectrics, and Frequency Control
-% Latest update by Myrthe Wiersma on 2022/11/30
+% Latest update by Myrthe Wiersma on 2022/12/02
 
 % This script takes 3 input data sets corresponding to lateral locations 
 % R1, R2, and R3 (see paper). Each of the three data sets contains the 
@@ -77,7 +77,9 @@ clear all
 close('all')
 
 % Choose folder of data set to perform ULM reconstruction on
-Data_folder = 'C:\Users\Lab3\Documents\DataSets';                           % Change this to the location of the folder containing the datasets on your pc
+REP_folder = '...\ULM_pulsatility';                                         % CHANGE THIS to the location of the repository on your pc
+Data_folder = [REP_folder filesep 'DataSets'];                             
+
 Folders = cell(3,1);
 Folders{1,1} =  [ Data_folder filesep 'DataSetR1'];              
 Folders{2,1} =  [ Data_folder filesep 'DataSetR2'];               

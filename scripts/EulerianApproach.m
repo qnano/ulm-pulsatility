@@ -3,7 +3,7 @@
 % corresponding paper:  
 % "Retrieving pulsatility in ultrasound localization microscopy"
 % IEEE Open Journal of Ultrasonics, Ferroelectrics, and Frequency Control
-% Latest update by Myrthe Wiersma on 2022/11/30
+% Latest update by Myrthe Wiersma on 2022/12/02
 
 
 % This script takes an input data set containing:
@@ -76,9 +76,10 @@ close('all')
 
 % Choose folder of data set to perform ULM reconstruction on
 % Choose folder of data set to perform ULM reconstruction on
-Data_folder = 'C:\Users\Lab3\Documents\DataSets';                           % Change this to the location of the folder containing the datasets on your pc
+REP_folder = '...\ULM_pulsatility';                                         % CHANGE THIS to the location of the repository on your pc
+Data_folder = [REP_folder filesep 'DataSets'];                             
 main_folder = [Data_folder filesep 'DataSetR1'];                            % Select here which dataset you want to proces (DataSetR1 or DataSetR2 or DatasetR3)
-REP_folder = 'C:\Users\Lab3\Documents\ULM_pulsatility';                     % Change this to the location of the repository on your pc
+
 PATCHES = 1;                                                                % Is the simulation structured in patches? Keep to 1
                                                                             % The accompanied dataset: 
                                                                             % Only contains MBs in one 3mmx3mm patch
@@ -255,33 +256,13 @@ Track_tot = cat(1,Track_tot{:});
 Track_tot_raw = cat(1,Track_tot_raw{:});
 
 %% Mapping
-% -------- Find nr of tracked MB ----------
-% % % total_nr_of_tracked_loc = 0;
-% % % interp_factor_tracking = 1/ULM.max_linking_distance/ULM.res*.8;
-% % % for track = 1:size(Track_tot,1)
-% % %     total_nr_of_tracked_loc = total_nr_of_tracked_loc + size(Track_tot{track,1},1)*interp_factor_tracking;
-% % % end
-
-% -------- Find all GT MB locations in local patch coordinates --------
-% % % MB_loc_conc_tot = cat(1,MB_loc_conc{:})-[3.7e-3, 0.4e-3];
-% % % MB_loc_conc_tot_pix = MB_loc_conc_tot./US_pix_size.*ULM.scale(1:2)/ULM.SRscale+[1/2 1/2];
-
-% ------ Transform MB_loc to same format as Localizations -----
-% % % for frame = 1:nr_frames
-% % %     chunk_nr = ceil(frame/chunk_size);
-% % %     Locs_GT = (MB_loc_conc{1,frame}./US_pix_size).*ULM.scale(1:2);
-% % %     Localizations_GT{1,chunk_nr}(((frame-(chunk_nr-1)*chunk_size)-1)*nr_MB+1:(frame-(chunk_nr-1)*chunk_size)*nr_MB,2:4) = [Locs_GT, ones(nr_MB,1)*(frame-(chunk_nr-1)*chunk_size)];
-% % % end
 
 % -------- Convert tracks into SRpixel ---------------
 Track_matout = cellfun(@(x) (x(:,[1 2 3 4]))./[ULM.SRscale ULM.SRscale 1 1] ,Track_tot,'UniformOutput',0);
-% % % Loc_GT_matout = cellfun(@(x) (x(:,[2 3 4]))./[ULM.SRscale ULM.SRscale 1] ,Localizations_GT,'UniformOutput',0);
 
 % ---------- Accumulate tracks on the final MatOut grid ---------
 fprintf('--- Creating images --- \n\n')
 %%
-% % % MatOut = ULM_Track2MatOut_new(Track_matout,ULM.SRsize);                     % tracks accumulated on supergrid [z x]
-% % % MatOut_loc_GT = ULM_Track2MatOut_new(Loc_GT_matout,ULM.SRsize);             % GT tracks accumulated on in supergrid [z x]
 [MatOut_vel,MatOut_vel_distr] = ULM_Track2MatOut_new(Track_matout,ULM.SRsize,'mode','2D_velnorm'); 
 % MatOut_vel -->        velocity map, where vel is averaged if multiple tracks that passed the pixel
 % MatOut_vel_distr -->  Each pixel collects all velocity measurements of all tracks that passed the pixel
